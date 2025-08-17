@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StellarTech - Refined Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            font-size: 62.5%;
+            /* Light mode colors (default) */
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --secondary-text-color: #495057;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --primary-color: #0d6efd;
+            --secondary-color: #6610f2;
+            --button-text-color: #ffffff;
+            --gradient-start: #0d6efd;
+            --gradient-end: #6610f2;
+        }
+
+        body[data-theme="dark"] {
+            /* Dark mode colors */
+            --bg-color: #0c0c0c;
+            --text-color: #f0f0f0;
+            --secondary-text-color: #c5c6c7;
+            --card-bg: #1a1a1a;
+            --border-color: #2c2c2c;
+            --primary-color: #6a7ee7;
+            --secondary-color: #66fcf1;
+            --button-text-color: #0c0c0c;
+            --gradient-start: #6a7ee7;
+            --gradient-end: #66fcf1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header-bg {
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-text-gradient {
+            background-image: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .button-primary {
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            color: var(--button-text-color);
+            transition: all 0.3s ease;
+        }
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-secondary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .button-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--button-text-color);
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hamburger-icon {
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-icon .line {
+            background-color: var(--text-color);
+        }
+        .hamburger-icon.open .line-top {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-icon.open .line-middle {
+            opacity: 0;
+        }
+        .hamburger-icon.open .line-bottom {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .mobile-menu-container {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .mobile-menu-container.open {
+            transform: translateX(0);
+        }
+
+        .text-hero {
+            font-size: 4rem;
+            line-height: 1.1;
+        }
+        @media (min-width: 40em) {
+            .text-hero {
+                font-size: 8rem;
+            }
+        }
+        @media (min-width: 60em) {
+            .text-hero {
+                font-size: 10rem;
+            }
+        }
+
+        .icon {
+            width: 5rem;
+            height: 5rem;
+            color: var(--primary-color);
+        }
+
+        /* --- Custom Styles for Design 3 --- */
+        /* Glassmorphism / Animated */
+        .vision-glass {
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-clip: padding-box;
+        }
+        .product-slide-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .product-slide-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased" data-theme="dark">
+    <!-- Header -->
+    <header class="p-4 md:p-6 lg:p-8 sticky top-0 z-50 header-bg bg-opacity-90 backdrop-blur-lg">
+        <nav class="flex justify-between items-center max-w-screen-xl mx-auto">
+            <a href="#" class="text-3.6rem font-bold hero-text-gradient">StellarTech</a>
+            <ul class="hidden md:flex space-x-3.2rem text-1.8rem">
+                <li><a href="#solutions" class="hover:text-[var(--primary-color)] transition-colors duration-300">Solutions</a></li>
+                <li><a href="#products" class="hover:text-[var(--primary-color)] transition-colors duration-300">Products</a></li>
+                <li><a href="#vision" class="hover:text-[var(--primary-color)] transition-colors duration-300">Vision</a></li>
+                <li><a href="#contact" class="hover:text-[var(--primary-color)] transition-colors duration-300">Contact</a></li>
+            </ul>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-lg text-[var(--primary-color)] hover:bg-[var(--border-color)] transition-colors duration-300">
+                    <svg id="sun-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="moon-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button class="hidden md:block button-primary text-1.6rem font-semibold py-1.6rem px-4.8rem rounded-lg">
+                    Get Started
+                </button>
+            </div>
+            <div id="mobile-menu-button" class="md:hidden hamburger-icon z-50">
+                <div class="line line-top h-1 w-8 my-1 rounded-full transition-transform duration-300 ease-in-out"></div>
+                <div class="line line-middle h-1 w-8 my-1 rounded-full transition-opacity duration-300 ease-in-out"></div>
+                <div class="line line-bottom h-1 w-8 my-1 rounded-full transition-transform duration-300 ease-in-out"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu-container fixed inset-y-0 right-0 w-64 z-40 p-8 shadow-lg">
+        <ul class="flex flex-col space-y-6 text-2.4rem font-semibold mt-16">
+            <li><a href="#solutions" class="hover:text-[var(--primary-color)] transition-colors duration-300">Solutions</a></li>
+            <li><a href="#products" class="hover:text-[var(--primary-color)] transition-colors duration-300">Products</a></li>
+            <li><a href="#vision" class="hover:text-[var(--primary-color)] transition-colors duration-300">Vision</a></li>
+            <li><a href="#contact" class="hover:text-[var(--primary-color)] transition-colors duration-300">Contact</a></li>
+        </ul>
+        <button class="mt-12 w-full button-primary text-1.8rem font-semibold py-1.6rem px-4.8rem rounded-lg">
+            Get Started
+        </button>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center text-center px-4 py-16 md:py-24">
+            <div class="max-w-screen-xl mx-auto">
+                <h1 class="font-extrabold text-hero tracking-tighter text-[var(--text-color)]">
+                    <span class="hero-text-gradient">Innovate.</span> <br class="sm:hidden">
+                    <span class="text-[var(--text-color)]">Build.</span> <br class="sm:hidden">
+                    <span class="hero-text-gradient">Scale.</span>
+                </h1>
+                <p class="mt-4 md:mt-8 text-2rem md:text-2.4rem max-w-4xl mx-auto leading-relaxed text-[var(--secondary-text-color)]">
+                    Pioneering solutions that transform industries and empower the next generation of creators.
+                </p>
+                <div class="mt-8 md:mt-12 flex justify-center space-x-4">
+                    <button class="button-primary text-1.8rem font-semibold py-1.6rem px-6rem rounded-lg">
+                        Explore Solutions
+                    </button>
+                    <button class="border-2 text-1.8rem font-semibold py-1.6rem px-6rem rounded-lg button-secondary">
+                        Request a Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Vision Section (Design 3) -->
+        <section id="vision" class="px-4 py-16 md:py-24 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)]"></div>
+            <div class="vision-glass p-8 md:p-12 rounded-3xl text-center max-w-4xl mx-auto relative z-10 shadow-xl">
+                <h2 class="text-3.6rem md:text-4.8rem font-bold mb-4 text-white">Our Vision</h2>
+                <p class="text-1.8rem md:text-2.4rem leading-relaxed text-gray-200">
+                    We are committed to building a future where technology is a force for good. Our mission is to create tools that empower creators, connect communities, and drive meaningful progress on a global scale. We see a world where every problem is an opportunity for a creative solution.
+                </p>
+            </div>
+        </section>
+
+        <!-- Our Products Section (Design 3) -->
+        <section id="products" class="max-w-screen-xl mx-auto px-4 py-16 md:py-24">
+            <h2 class="text-3.6rem md:text-4.8rem font-bold text-center mb-16 md:mb-24 hero-text-gradient">Our Innovative Products</h2>
+            <div class="space-y-16">
+                <div class="product-slide-in">
+                    <div class="card p-8 md:p-12 rounded-3xl flex flex-col items-start shadow-xl bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
+                        <h3 class="text-3.2rem md:text-4rem font-bold mb-4">Core Cloud Platform</h3>
+                        <p class="text-1.8rem md:text-2.4rem">The foundation of everything we do. Our cloud is built for developers by developers, offering unmatched speed, security, and scalability for applications of any size.</p>
+                    </div>
+                </div>
+                <div class="product-slide-in">
+                    <div class="card p-8 md:p-12 rounded-3xl flex flex-col items-start shadow-xl bg-gradient-to-br from-purple-900 to-pink-900 text-white">
+                        <h3 class="text-3.2rem md:text-4rem font-bold mb-4">Quantum AI Engine</h3>
+                        <p class="text-1.8rem md:text-2.4rem">A new era of machine learning. Our AI engine is designed to handle complex data and deliver insightful, actionable intelligence faster than ever before. Integrate with ease and start innovating.</p>
+                    </div>
+                </div>
+                <div class="product-slide-in">
+                    <div class="card p-8 md:p-12 rounded-3xl flex flex-col items-start shadow-xl bg-gradient-to-br from-teal-900 to-cyan-900 text-white">
+                        <h3 class="text-3.2rem md:text-4rem font-bold mb-4">Project Nexus Toolkit</h3>
+                        <p class="text-1.8rem md:text-2.4rem">The ultimate toolkit for modern development. From collaborative coding to automated deployments, Project Nexus streamlines your entire workflow and boosts your team's efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Solutions Section -->
+        <section id="solutions" class="max-w-screen-xl mx-auto px-4 py-16 md:py-24">
+            <h2 class="text-3.6rem md:text-4.8rem font-bold text-center mb-16 md:mb-24 hero-text-gradient max-w-screen-xl mx-auto">
+                Our Core Solutions
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-screen-xl mx-auto">
+                <!-- Feature Card 1 -->
+                <div class="card p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-2.4rem md:text-3.2rem font-bold mb-4 text-[var(--primary-color)]">Cloud Computing</h3>
+                    <p class="text-1.6rem md:text-1.8rem text-[var(--secondary-text-color)] leading-relaxed flex-grow">
+                        Scalable and reliable cloud infrastructure for all your computing needs, from small-scale projects to enterprise-level applications.
+                    </p>
+                    <a href="#" class="mt-6 text-[var(--primary-color)] text-1.6rem font-semibold hover:text-[var(--secondary-color)] transition-colors duration-300">Learn More &rarr;</a>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="card p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-2.4rem md:text-3.2rem font-bold mb-4 text-[var(--primary-color)]">Data Analytics</h3>
+                    <p class="text-1.6rem md:text-1.8rem text-[var(--secondary-text-color)] leading-relaxed flex-grow">
+                        Turn raw data into actionable insights with our powerful and easy-to-use data analytics and visualization tools.
+                    </p>
+                    <a href="#" class="mt-6 text-[var(--primary-color)] text-1.6rem font-semibold hover:text-[var(--secondary-color)] transition-colors duration-300">Learn More &rarr;</a>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="card p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <h3 class="text-2.4rem md:text-3.2rem font-bold mb-4 text-[var(--primary-color)]">AI & Machine Learning</h3>
+                    <p class="text-1.6rem md:text-1.8rem text-[var(--secondary-text-color)] leading-relaxed flex-grow">
+                        Leverage the power of artificial intelligence and machine learning to build smarter, more predictive applications.
+                    </p>
+                    <a href="#" class="mt-6 text-[var(--primary-color)] text-1.6rem font-semibold hover:text-[var(--secondary-color)] transition-colors duration-300">Learn More &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="max-w-screen-xl mx-auto px-4 py-16 md:py-24 text-center">
+            <h2 class="text-3.6rem md:text-4.8rem font-bold mb-4 hero-text-gradient">
+                Ready to Get Started?
+            </h2>
+            <p class="text-2rem md:text-2.4rem leading-relaxed text-[var(--secondary-text-color)] max-w-4xl mx-auto">
+                Whether you have a question or are ready to partner with us, we'd love to hear from you.
+            </p>
+            <div class="mt-8 w-full max-w-lg mx-auto">
+                <div class="flex flex-col space-y-4">
+                    <input type="text" placeholder="Your Name" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-1.6rem text-[var(--text-color)] px-4 py-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+                    <input type="email" placeholder="Your Email" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-1.6rem text-[var(--text-color)] px-4 py-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+                    <textarea placeholder="Your Message" rows="4" class="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-1.6rem text-[var(--text-color)] px-4 py-3 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"></textarea>
+                    <button class="button-primary text-1.8rem font-semibold py-1.6rem px-6rem rounded-lg">
+                        Send Message
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-6 md:p-8 text-center text-1.4rem text-[var(--secondary-text-color)] border-t border-[var(--border-color)] mt-16 md:mt-24">
+        <p>&copy; 2025 StellarTech. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for mobile menu and Design 3 animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuButton.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
+            });
+            
+            // Theme Toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            // Set initial state for dark theme
+            body.setAttribute('data-theme', 'dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+
+            themeToggle.addEventListener('click', () => {
+                if (body.getAttribute('data-theme') === 'dark') {
+                    body.setAttribute('data-theme', 'light');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                }
+            });
+
+            // Intersection Observer for Design 3 animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            document.querySelectorAll('.product-slide-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
